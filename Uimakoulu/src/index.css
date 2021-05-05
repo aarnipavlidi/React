@@ -10,9 +10,10 @@ body, html {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-attachment: fixed;
 }
 
-.testi {
+.custom-nav-color {
   background-color: #8fcad0 !important;
   border-bottom: 5px solid #7dc2c9;
   opacity: 90%;
