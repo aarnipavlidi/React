@@ -1,12 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
-body, html {
-  height: 100%;
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 125px;
+}
+
+.app-content {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.content-style {
+  text-align: center;
+  color: black;
+  background-color: rgb(197, 228, 231, .75);
 }
 
 .bg {
   background-image: url('./images/taylor-simpson-BK0y-LChktM-unsplash.jpg');
-  height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -14,8 +26,7 @@ body, html {
 }
 
 .custom-nav-color {
-  background-color: #8fcad0 !important;
-  border-bottom: 5px solid #7dc2c9;
-  opacity: 90%;
+  background-color: rgb(143, 202, 208, .75) !important;
+  border-bottom: 3px solid rgb(197, 228, 231, .75);
   font-family: 'Josefin Sans', sans-serif;
 }
