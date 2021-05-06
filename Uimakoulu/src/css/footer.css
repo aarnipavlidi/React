@@ -24,6 +24,7 @@ footer {
 
 .social-text a {
   color: inherit;
+  text-decoration: none;
 }
 
 .social-text a:hover {

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital@1&display=swap');
 
 .app-container {
   min-height: 100vh;
@@ -11,12 +11,13 @@
 .app-content {
   margin-top: 15px;
   margin-bottom: 15px;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .content-style {
   text-align: center;
-  color: black;
-  background-color: rgb(197, 228, 231, .75);
+  color: #131617;
+  background-color: rgb(197, 228, 231, .9);
 }
 
 .bg {
@@ -28,7 +29,11 @@
 }
 
 .custom-nav-color {
-  background-color: rgb(143, 202, 208, .75) !important;
-  border-bottom: 3px solid rgb(197, 228, 231, .75);
-  font-family: 'Josefin Sans', sans-serif;
+  background-color: rgb(143, 202, 208, .9) !important;
+  border-bottom: 3px solid rgb(197, 228, 231, .9);
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.custom-nav-color a {
+  color: #131617 !important;
 }
