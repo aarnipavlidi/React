@@ -1,12 +1,47 @@
 import React, { useState } from 'react' // Sovellus ottaa "react" nimisen kirjaston käyttöönsä, joka myös hyödyntää "useState" ja "useEffect" funktioita.
+import emailjs from 'emailjs-com'
+
+const config = require('../utils/config') // Alustetaan muuttuja "config", joka hyödyntää "config.js" (erillinen moduuli) tiedostoa eli => "./utils/config.js".
 
 const Content = ({ checkContent }) => {
 
-  const [clientName, setClientName] = useState('')
-  const [clientLastname, setClientLastname] = useState('')
-  const [clientEmail, setClientEmail] = useState('')
-  const [clientNumber, setClientNumber] = useState('')
-  const [clientMessage, setClientMessage] = useState('')
+  const [contactForm, setContactForm] = useState({
+    from_name: '',
+    from_lastname: '',
+    from_number: '',
+    message: '',
+    reply_to: '',
+    to_name: 'Aarni Pavlidi'
+  })
+
+  const [loadingButton, setLoadingButton] = useState(false)
+  const showLoading = { display: loadingButton ? '' : 'none' }
+  const hideLoading = { display: loadingButton ? 'none' : '' }
+
+  const handleFormSend = async (event) => {
+    event.preventDefault()
+    setLoadingButton(true)
+    try {
+      const response = await emailjs.send(config.EMAIL_SERVICE_ID, config.EMAIL_TEMPLATE_ID, contactForm, config.EMAIL_USER_ID)
+      setContactForm({
+        from_name: '',
+        from_lastname: '',
+        from_number: '',
+        message: '',
+        reply_to: ''
+      })
+      console.log('You have successfully forwarded the forms message! :)', response.status, response.text)
+      setLoadingButton(false)
+    } catch (error) {
+      console.log('There was a problem sending the forms message. Please try again later! :)', error)
+      setLoadingButton(false)
+    }
+  }
+
+  const handleForm = (event) => {
+    event.preventDefault()
+    setContactForm({ ...contactForm, [event.target.name]: event.target.value })
+  }
 
   if (checkContent === 'Hinnasto') {
     return (
@@ -20,58 +55,73 @@ const Content = ({ checkContent }) => {
     return (
       <div className="app-content form-style container">
 
-      <form>
+      <form onSubmit={handleFormSend}>
         <div className="row">
           <div className="col">
-            <label className="form-label">Etunimi</label>
+            <label for='validationClientName' className="form-label">Etunimi</label>
             <input
             type="text"
-            value={clientName}
+            name='from_name'
+            value={contactForm.from_name}
             className="form-control"
-            onChange={({ target }) => setClientName(target.value)}
+            onChange={handleForm}
+            id='validationClientName'
+            required
             />
           </div>
           <div className="col">
-            <label className="form-label">Sukunimi</label>
+            <label for='validationClientLastname' className="form-label">Sukunimi</label>
             <input
             type="text"
-            value={clientLastname}
+            name='from_lastname'
+            value={contactForm.from_lastname}
             className="form-control"
-            onChange={({ target }) => setClientLastname(target.value)}
+            onChange={handleForm}
+            id='validationClientLastname'
+            required
             />
           </div>
         </div>
 
         <div className="row">
           <div className="col">
-            <label className="form-label">Sähköposti</label>
+            <label for='validationClientEmail' className="form-label">Sähköposti</label>
             <input
             type="email"
-            value={clientEmail}
+            name='reply_to'
+            value={contactForm.reply_to}
             className="form-control"
-            onChange={({ target }) => setClientEmail(target.value)}
+            onChange={handleForm}
+            id='validationClientEmail'
+            required
             />
           </div>
           <div className="col">
-            <label className="form-label">Puhelinnumero</label>
+            <label for='validationClientNumber' className="form-label">Puhelinnumero</label>
             <input
-            type="email"
-            value={clientNumber}
+            type="number"
+            name='from_number'
+            value={contactForm.from_number}
             className="form-control"
-            onChange={({ target }) => setClientNumber(target.value)}
+            onChange={handleForm}
+            id='validationClientNumber'
+            required
             />
           </div>
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Viestikenttä</label>
-          <textarea className="form-control" rows="5" value={clientMessage} onChange={({ target }) => setClientMessage(target.value)}></textarea>
+          <label for='validationClientMessage' className="form-label">Viestikenttä</label>
+          <textarea className="form-control" rows="5" name='message' value={contactForm.message} onChange={handleForm} id='validationClientMessage' required></textarea>
+        </div>
+        <div style={hideLoading}>
+          <button type="submit" className="btn btn-primary">Lähetä</button>
+        </div>
+        <div style={showLoading}>
+          <button type="button" className="btn btn-primary" disabled><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Lähettää...</button>
         </div>
 
-        <button type="submit" className="btn btn-primary btn-sm">Lähetä</button>
       </form>
-
-
       </div>
     )
   }
