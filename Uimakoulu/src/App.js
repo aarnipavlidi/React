@@ -1,9 +1,23 @@
 import React, { useState } from 'react' // Sovellus ottaa "react" nimisen kirjaston käyttöönsä, joka myös hyödyntää "useState" ja "useEffect" funktioita.
 import GetContent from './components/Content'
+import Notification from './components/Notification'
 
 const App = () => { // Sovellus alkaa tästä...
 
   const [content, setContent] = useState('')
+
+  const [status, setStatus] = useState(null)
+  const [statusMessage, setStatusMessage] = useState(null)
+
+  const getNotification = async (message) => {
+    const response = await message
+    setStatus(response.status)
+    setStatusMessage(response.message)
+    setTimeout(() => {
+      setStatus(null)
+      setStatusMessage(null)
+    }, 6000)
+  }
 
   return (
     <div className="app-container">
@@ -28,7 +42,10 @@ const App = () => { // Sovellus alkaa tästä...
           </div>
       </nav>
 
-      <GetContent checkContent={content} />
+      <div className="app-content content-style container">
+        <Notification message={statusMessage} checkStatus={status} />
+        <GetContent checkContent={content} responseMessage={getNotification} />
+      </div>
 
         <footer className="container-fluid">
           <div className="footer-title">
@@ -50,7 +67,6 @@ const App = () => { // Sovellus alkaa tästä...
               <a href="#" target="_blank">FACEBOOK</a>
             </div>
           </div>
-
 
           <div className="copyright">
             <p><span>&#169;</span>2021</p>

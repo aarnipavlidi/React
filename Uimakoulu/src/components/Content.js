@@ -3,7 +3,7 @@ import emailjs from 'emailjs-com'
 
 const config = require('../utils/config') // Alustetaan muuttuja "config", joka hyödyntää "config.js" (erillinen moduuli) tiedostoa eli => "./utils/config.js".
 
-const Content = ({ checkContent }) => {
+const Content = ({ checkContent, responseMessage }) => {
 
   const [contactForm, setContactForm] = useState({
     from_name: '',
@@ -32,9 +32,24 @@ const Content = ({ checkContent }) => {
       })
       console.log('You have successfully forwarded the forms message! :)', response.status, response.text)
       setLoadingButton(false)
+      responseMessage({
+        message: 'Kiitoksia yhteydenotosta! Olemme teihin yhteydessä mahdollisimman pian.',
+        status: true
+      })
     } catch (error) {
+      setContactForm({
+        from_name: '',
+        from_lastname: '',
+        from_number: '',
+        message: '',
+        reply_to: ''
+      })
       console.log('There was a problem sending the forms message. Please try again later! :)', error)
       setLoadingButton(false)
+      responseMessage({
+        message: 'Viestin lähettäminen epäonnistui! Yrittäkää kokeilla uudestaan myöhemmin.',
+        status: false
+      })
     }
   }
 
@@ -45,89 +60,95 @@ const Content = ({ checkContent }) => {
 
   if (checkContent === 'Hinnasto') {
     return (
-      <div className="app-content content-style container">
-        <h2>Hinnasto :D</h2>
+      <div>
+        <h2>Hinnasto</h2>
+        <p>work in progress</p>
       </div>
     )
   }
 
   if (checkContent === 'Ota yhteyttä') {
     return (
-      <div className="app-content form-style container">
-
-      <form onSubmit={handleFormSend}>
-        <div className="row">
-          <div className="col">
-            <label for='validationClientName' className="form-label">Etunimi</label>
-            <input
-            type="text"
-            name='from_name'
-            value={contactForm.from_name}
-            className="form-control"
-            onChange={handleForm}
-            id='validationClientName'
-            required
-            />
+      <div className="form-style">
+        <div>
+          <h2 className="text-center">Yhteydenottolomake</h2>
+        </div>
+        <form onSubmit={handleFormSend}>
+          <div className="row">
+            <div className="col">
+              <label for='validationClientName' className="form-label">Etunimi</label>
+              <input
+              type="text"
+              name='from_name'
+              value={contactForm.from_name}
+              className="form-control"
+              onChange={handleForm}
+              id='validationClientName'
+              required
+              />
+            </div>
+            <div className="col">
+              <label for='validationClientLastname' className="form-label">Sukunimi</label>
+              <input
+              type="text"
+              name='from_lastname'
+              value={contactForm.from_lastname}
+              className="form-control"
+              onChange={handleForm}
+              id='validationClientLastname'
+              required
+              />
+            </div>
           </div>
-          <div className="col">
-            <label for='validationClientLastname' className="form-label">Sukunimi</label>
-            <input
-            type="text"
-            name='from_lastname'
-            value={contactForm.from_lastname}
-            className="form-control"
-            onChange={handleForm}
-            id='validationClientLastname'
-            required
-            />
-          </div>
-        </div>
 
-        <div className="row">
-          <div className="col">
-            <label for='validationClientEmail' className="form-label">Sähköposti</label>
-            <input
-            type="email"
-            name='reply_to'
-            value={contactForm.reply_to}
-            className="form-control"
-            onChange={handleForm}
-            id='validationClientEmail'
-            required
-            />
+          <div className="row">
+            <div className="col">
+              <label for='validationClientEmail' className="form-label">Sähköposti</label>
+              <input
+              type="email"
+              name='reply_to'
+              value={contactForm.reply_to}
+              className="form-control"
+              onChange={handleForm}
+              id='validationClientEmail'
+              required
+              />
+            </div>
+            <div className="col">
+              <label for='validationClientNumber' className="form-label">Puhelinnumero</label>
+              <input
+              type="number"
+              name='from_number'
+              value={contactForm.from_number}
+              className="form-control"
+              onChange={handleForm}
+              id='validationClientNumber'
+              required
+              />
+            </div>
           </div>
-          <div className="col">
-            <label for='validationClientNumber' className="form-label">Puhelinnumero</label>
-            <input
-            type="number"
-            name='from_number'
-            value={contactForm.from_number}
-            className="form-control"
-            onChange={handleForm}
-            id='validationClientNumber'
-            required
-            />
+
+          <div className="mb-3">
+            <label for='validationClientMessage' className="form-label">Viestikenttä</label>
+            <textarea className="form-control" rows="5" name='message' value={contactForm.message} onChange={handleForm} id='validationClientMessage' required></textarea>
           </div>
-        </div>
-
-        <div className="mb-3">
-          <label for='validationClientMessage' className="form-label">Viestikenttä</label>
-          <textarea className="form-control" rows="5" name='message' value={contactForm.message} onChange={handleForm} id='validationClientMessage' required></textarea>
-        </div>
-        <div style={hideLoading}>
-          <button type="submit" className="btn btn-primary">Lähetä</button>
-        </div>
-        <div style={showLoading}>
-          <button type="button" className="btn btn-primary" disabled><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Lähettää...</button>
-        </div>
-
-      </form>
+          <div style={hideLoading}>
+            <div className="text-center">
+              <button type="submit" className="btn btn-outline-dark">Lähetä</button>
+            </div>
+          </div>
+          <div style={showLoading}>
+            <div className="text-center">
+              <button type="button" className="btn btn-dark" disabled><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Lähettää...</button>
+            </div>
+          </div>
+        </form>
       </div>
     )
   }
 
   return (
-    <div className="app-content content-style container">
+    <div>
       <div>
         <h2>Yksityinen uimakoulu Oulussa</h2>
       </div>
