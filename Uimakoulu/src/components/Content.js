@@ -60,10 +60,41 @@ const Content = ({ checkContent, responseMessage }) => {
 
   if (checkContent === 'Hinnasto') {
     return (
-      <div>
+
+      <div className="container">
         <h2>Hinnasto</h2>
-        <p>work in progress</p>
+          <div className="row">
+            <div className="col-md text-start">
+              <p>Hinnat 1 hlö: (Huom. ei sisällä uimahallin sisäänpääsyä)</p>
+              <div className="text-center">
+                <p>1x45min 49€</p>
+                <p>3x45min 140e</p>
+                <p>5x45min 220€</p>
+              </div>
+            </div>
+            <div className="col-md text-start">
+              <p>Hinnat 2 hlö: (Huom. ei sisällä uimahallin sisäänpääsyä)</p>
+              <div className="text-center">
+                <p>1x45min 49€</p>
+                <p>3x45min 140e</p>
+                <p>5x45min 220€</p>
+              </div>
+            </div>
+          </div>
+          <hr className="custom-horizontal-line" />
+          <div className="row">
+            <div className="col-md text-start">
+              <p>Yhden (1) yksityistunnin kesto on oletuksena 45 minuuttia kerrallaan. Opetuspaikkana toimii Oulun uimahalli.</p>
+              <p>Tunnit laskutetaan asiakkaalta jälkikäteen sähköpostitse lähettävällä laskulla. Hintaan sisältyy opetus ja uimarin vakuutus uinnin ajaksi.</p>
+              <p>Hintaan ei sisälly uimahallin sisäänpääsymaksu, vaan se maksetaan normaaliin tapaan uimahallin kassalla.</p>
+            </div>
+            <div className="col-md text-start">
+              <p>Mikäli tulee esteitä, niin yksityistunnin voi perua veloituksetta viimeistään kaksi (2) vuorokautta ennen sovitun tunnin alkua. Muussa tapauksessa veloitaimme tunnista täyden hinnan.</p>
+              <p>Uimakoulu Oy pidättää oikeuden perua tunnin esim. ohjaajan sairastuessa.</p>
+            </div>
+          </div>
       </div>
+
     )
   }
 
@@ -134,12 +165,12 @@ const Content = ({ checkContent, responseMessage }) => {
           </div>
           <div style={hideLoading}>
             <div className="text-center">
-              <button type="submit" className="btn btn-outline-dark">Lähetä</button>
+              <button type="submit" className="btn btn-outline-dark button-position">Lähetä</button>
             </div>
           </div>
           <div style={showLoading}>
             <div className="text-center">
-              <button type="button" className="btn btn-dark" disabled><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Lähettää...</button>
+              <button type="button" className="btn btn-dark button-position" disabled><span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>Lähettää...</button>
             </div>
           </div>
         </form>

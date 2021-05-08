@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital@1&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
 .app-container {
   min-height: 100vh;
   overflow: hidden;
@@ -31,9 +33,25 @@
 .custom-nav-color {
   background-color: rgb(143, 202, 208, .9) !important;
   border-bottom: 3px solid rgb(197, 228, 231, .9);
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'Luckiest Guy', cursive;
 }
 
 .custom-nav-color a {
-  color: #131617 !important;
+  color: white !important;
+}
+
+.custom-nav-color a:hover {
+  opacity: 75%;
+  text-decoration: none;
+}
+
+hr.custom-horizontal-line {
+  background-color: rgb(88, 176, 185);
+  height: 0px;
+  border: none;
+  border-top: 3px solid rgb(88, 176, 185);
+}
+
+.notification-box {
+  padding-top: 15px;
 }

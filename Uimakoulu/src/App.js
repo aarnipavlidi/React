@@ -22,29 +22,33 @@ const App = () => { // Sovellus alkaa tästä...
   return (
     <div className="app-container">
       <nav className="navbar navbar-expand-lg navbar-light custom-nav-color">
-          <a className="navbar-brand" href="#">Santun Uimakoulu</a>
+          <a className="navbar-brand">Santun Uimakoulu</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
 
           <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul className="navbar-nav">
-              <li className="nav-item text-center active">
-                <a onClick={() => setContent('Etusivu')} className="nav-link rwz" href="#">Etusivu <span className="sr-only">(current)</span></a>
+              <li className="nav-item text-center">
+                <button onClick={() => setContent('Etusivu')}>Etusivu</button>
               </li>
               <li className="nav-item text-center">
-                <a onClick={() => setContent('Hinnasto')} className="nav-link" href="#">Hinnasto</a>
+                <button onClick={() => setContent('Hinnasto')}>Hinnasto</button>
               </li>
               <li className="nav-item text-center">
-                <a onClick={() => setContent('Ota yhteyttä')} className="nav-link" href="#">Ota yhteyttä</a>
+                <button onClick={() => setContent('Ota yhteyttä')}>Ota yhteyttä</button>
               </li>
             </ul>
           </div>
       </nav>
 
-      <div className="app-content content-style container">
-        <Notification message={statusMessage} checkStatus={status} />
-        <GetContent checkContent={content} responseMessage={getNotification} />
+      <div className="app-content container">
+        <div className="content-style container shadow-lg rounded">
+          <div className="notification-box">
+            <Notification message={statusMessage} checkStatus={status} />
+          </div>
+          <GetContent checkContent={content} responseMessage={getNotification} />
+        </div>
       </div>
 
         <footer className="container-fluid">
